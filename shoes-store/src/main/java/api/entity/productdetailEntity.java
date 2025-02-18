@@ -1,0 +1,43 @@
+package api.entity;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+
+@Data
+@Entity
+@Table(name = "productdetail")
+public class productdetailEntity {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productid")
+    private productsEntity productsEntity;
+
+    @NotNull
+    @Min(35)
+    private int size;
+
+    @NotNull
+    @Min(0)
+    private long inventory;
+
+    @OneToMany(mappedBy = "productdetail")
+    private Collection<repositoryEntity> repositoryEntities;
+
+
+    @OneToMany(mappedBy = "productdetail")
+    private Collection<shopcartEntity> shopcartproduct;
+
+
+    @OneToMany(mappedBy = "productdetailEntity", cascade = CascadeType.ALL)
+    private Collection<orderdetailEntity> orderdetailEntities;
+}
+
