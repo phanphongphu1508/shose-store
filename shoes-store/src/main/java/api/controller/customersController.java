@@ -11,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -25,15 +24,15 @@ public class customersController {
     roleRepository roleRepository;
 
     @GetMapping("")
-    public ResponseEntity<Object> getcustomers(){
+    public ResponseEntity<Object> getcustomers() {
         String username = "";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         }
 
-        customersDTO customersDTO =  customersService.getcustomers(username);
-        if(customersDTO == null){
+        customersDTO customersDTO = customersService.getcustomers(username);
+        if (customersDTO == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
         }
         return ResponseEntity.status(HttpStatus.OK).body(customersDTO);
@@ -41,33 +40,32 @@ public class customersController {
 
 
     @PostMapping("")
-    public ResponseEntity<Object> updatecustomers(@Valid @RequestBody customersDTO customerDTO){
+    public ResponseEntity<Object> updatecustomers(@Valid @RequestBody customersDTO customerDTO) {
         String username = "";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         }
-        customersDTO customersDTO = customersService.updatecustomer(customerDTO,username);
+        customersDTO customersDTO = customersService.updatecustomer(customerDTO, username);
         return ResponseEntity.status(HttpStatus.OK).body(customersDTO);
     }
 
 
     @PostMapping("/password")
-    public ResponseEntity<Object> ChangePassword(@RequestBody ChangePassword changePassword){
+    public ResponseEntity<Object> ChangePassword(@RequestBody ChangePassword changePassword) {
         String username = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         }
 
-        int check = customersService.checkpassword(username,changePassword.getOldpassword());
-        if(check == 0){
+        int check = customersService.checkpassword(username, changePassword.getOldpassword());
+        if (check == 0) {
             MessageResponse mes = new MessageResponse("password incorrect");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mes);
         }
-        return new ResponseEntity<Object>(customersService.changepassword(username,changePassword.getNewpassword()),HttpStatus.OK);
+        return new ResponseEntity<Object>(customersService.changepassword(username, changePassword.getNewpassword()), HttpStatus.OK);
     }
-
 
 
 }

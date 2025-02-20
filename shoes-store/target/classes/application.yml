@@ -8,7 +8,8 @@ spring:
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.MySQLDialect
-
+jwt:
+  key: 4MWNZYsYradtlHxKSyBXASQRkv7C58itqJgy8zNlYRU=
 
   jackson:
     serialization:
@@ -24,14 +25,6 @@ bezkoder:
     jwtSecret: bezKoderSecretKey
     jwtExpirationMs: 86400000
 
-paypal:
-  mode: sandbox
-  client:
-    app: AUBprZaDMMQgZfQQ-7b0GbJ2DB1w8K6u1aIMu-9ub2_vmdrHhkdQhPe-3nqsw4AOuQ5vcir3hpouRpk7
-    secret: ELsOc2WI7WfW7IMHCdOW7J4Ne9SC1e5Y6iY28neFSsIolWteckRGJtZNBu6wi_sgmhF93Ftax7oAXjng
-
-
-# cau hinh amazon
 amazonProperties:
   endpointUrl: https://s3.us-east-2.amazonaws.com
   accessKey: AKIAXUJG4CPZDEVNJB7A

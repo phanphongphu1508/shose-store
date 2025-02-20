@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -21,9 +21,9 @@ public class typeController {
 
 
     @PostMapping("/create")
-    public ResponseEntity createType(@Valid typeEntity type){
-        if(typeRepository.existsById(type.getId())){
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id is already taken");
+    public ResponseEntity createType(@Valid typeEntity type) {
+        if (typeRepository.existsById(type.getId())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id is already taken");
         }
         typeRepository.save(type);
         return ResponseEntity.status(HttpStatus.CREATED).body("success");

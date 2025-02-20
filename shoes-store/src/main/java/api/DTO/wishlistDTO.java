@@ -1,9 +1,9 @@
 package api.DTO;
 
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-
+@Data
 public class wishlistDTO {
 
     private long id;
@@ -13,28 +13,4 @@ public class wishlistDTO {
 
     @NotNull
     private long customerid;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getProductid() {
-        return productid;
-    }
-
-    public void setProductid(long productid) {
-        this.productid = productid;
-    }
-
-    public long getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(long customerid) {
-        this.customerid = customerid;
-    }
 }

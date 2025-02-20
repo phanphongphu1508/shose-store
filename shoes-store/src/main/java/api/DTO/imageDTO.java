@@ -1,12 +1,10 @@
 package api.DTO;
 
-import api.entity.productsEntity;
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.Min;
+import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-
+@Data
 public class imageDTO {
 
     @Min(value = 0)
@@ -16,30 +14,4 @@ public class imageDTO {
     private String url;
 
     private long productid;
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public long getProductid() {
-        return productid;
-    }
-
-    public void setProductid(long productid) {
-        this.productid = productid;
-    }
-    
 }

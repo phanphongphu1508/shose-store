@@ -1,8 +1,7 @@
 package api.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
-
-import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,16 +14,4 @@ public class paymentEntity {
     private String name;
 
     private String url;
-
-//    @OneToOne(mappedBy = "paymentEntity")
-//    private Collection<ordersEntity> ordersEntities;
-
-    public paymentEntity() {
-    }
-
-    public paymentEntity(Long id, String name, String url) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-    }
 }

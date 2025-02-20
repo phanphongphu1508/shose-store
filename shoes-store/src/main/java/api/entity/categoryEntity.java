@@ -1,9 +1,9 @@
 package api.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Data

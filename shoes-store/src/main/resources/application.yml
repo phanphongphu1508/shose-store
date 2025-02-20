@@ -8,7 +8,8 @@ spring:
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.MySQLDialect
-
+jwt:
+  key: 4MWNZYsYradtlHxKSyBXASQRkv7C58itqJgy8zNlYRU=
 
   jackson:
     serialization:
@@ -23,3 +24,9 @@ bezkoder:
   app:
     jwtSecret: bezKoderSecretKey
     jwtExpirationMs: 86400000
+
+amazonProperties:
+  endpointUrl: https://s3.us-east-2.amazonaws.com
+  accessKey: AKIAXUJG4CPZDEVNJB7A
+  secretKey: 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
+  bucketName: myawsbucketappfile

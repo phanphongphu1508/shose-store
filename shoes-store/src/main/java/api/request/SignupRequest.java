@@ -1,10 +1,10 @@
 package api.request;
 
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data

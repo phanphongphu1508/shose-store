@@ -3,6 +3,7 @@ package api.service;
 import api.DTO.*;
 import api.entity.*;
 import api.repository.*;
+import jakarta.mail.MessagingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,9 +50,6 @@ public class ordersService {
 
     @Autowired
     paymentRepository paymentRepository;
-
-    @Autowired
-    api.service.sendMailService sendMailService;
 
     @Autowired
     repositoryRepository repositoryRepository;
