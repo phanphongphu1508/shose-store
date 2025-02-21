@@ -23,7 +23,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomSecurityFilter filter) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(request -> {
-            request.requestMatchers("/api/auth/signin").permitAll();
+            request.requestMatchers("/api/auth/signin", "/api/auth/signup").permitAll();
+            request.requestMatchers("/api/product/id/{productsid}").hasRole("ADMIN");
             request.anyRequest().authenticated();
         }).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).build();
     }
