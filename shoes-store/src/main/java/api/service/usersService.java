@@ -39,7 +39,7 @@ public class usersService implements UserDetailsService {
             usersEntity userEntity = user.get();
             if (passwordEncoder.matches(loginRequest.getPassword(), userEntity.getPassword())) {
                 SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(keyJWT));
-                String jws = Jwts.builder().subject("Joe").signWith(key).compact();
+                String jws = Jwts.builder().subject(userEntity.getRoles().toString()).signWith(key).compact();
                 token = jws;
             }
         }
