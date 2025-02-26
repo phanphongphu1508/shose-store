@@ -23,10 +23,11 @@ function Signup() {
         var usernames = document.getElementById("register-email").value;
         var passwords = document.getElementById("register-password").value;
         var firstnames = document.getElementById("register-firstname").value;
+        var lastnames = document.getElementById("register-lastname").value;
         var phones = document.getElementById("register-phone").value;
         var addresss = document.getElementById("register-address").value;
 
-        if (usernames.length < 3 || firstnames.length < 3) {
+        if (usernames.length < 3 || firstnames.length < 3 || lastnames.length < 3) {
             alert("dữ liệu không hợp lệ")
             return false;
         }
@@ -56,6 +57,7 @@ function Signup() {
             email: usernames,
             password: passwords,
             firstname: firstnames,
+            lastname: lastnames,
             phone: phones,
             address: addresss,
             role: ["USER"]
@@ -109,8 +111,12 @@ function Signup() {
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-sm-6">
-                                                        <label for="register-password-2">Full Name *</label>
-                                                        <input style={{ fontSize: 14 }} type="text" minLength="4" className="form-control" id="register-firstname" name="register-firstname" required />
+                                                        <label for="register-password-2">FirstName *</label>
+                                                        <input style={{ fontSize: 14 }} type="text" minLength="3" className="form-control" id="register-firstname" name="register-firstname" required />
+                                                    </div>
+                                                    <div className="col-sm-6">
+                                                        <label for="register-password-2">LastName *</label>
+                                                        <input style={{ fontSize: 14 }} minLength="3" type="text" className="form-control" id="register-lastname" name="register-lastname" required />
                                                     </div>
                                                 </div>
                                                 <div className="form-group">

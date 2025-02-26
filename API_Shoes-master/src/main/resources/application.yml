@@ -1,3 +1,43 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shoes
+    username: root
+    password: admin
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 687914656313-s00vdoaj1vt9gfmqh3ole62fcn65tdq7.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile,email
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  http:
+    multipart:
+      max-file-size: 12800KB
+      max-request-size: 12800KB
+
+bezkoder:
+  app:
+    jwtSecret: bezKoderSecretKey
+    jwtExpirationMs: 86400000
+
+paypal:
+  mode: sandbox
+  client:
+    app: AUBprZaDMMQgZfQQ-7b0GbJ2DB1w8K6u1aIMu-9ub2_vmdrHhkdQhPe-3nqsw4AOuQ5vcir3hpouRpk7
+    secret: ELsOc2WI7WfW7IMHCdOW7J4Ne9SC1e5Y6iY28neFSsIolWteckRGJtZNBu6wi_sgmhF93Ftax7oAXjng
 
 # cau hinh amazon
 amazonProperties:
@@ -5,3 +45,24 @@ amazonProperties:
   accessKey: AKIAXUJG4CPZDEVNJB7A
   secretKey: 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
   bucketName: myawsbucketappfile
+
+google:
+  app:
+    id: 687914656313-s00vdoaj1vt9gfmqh3ole62fcn65tdq7.apps.googleusercontent.com
+    secret: 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
+  redirect:
+    uri: https://localhost:8090/api/auth/login-google
+  link:
+    get:
+      token: https://accounts.google.com/o/oauth2/token
+      user_info: https://www.googleapis.com/oauth2/v1/userinfo?access_token=
+
+#facebook:
+#  app:
+#    id: 1101972766995519
+#    secret: e6d10c0f677f836fdaebdda46b125aed
+#  redirect:
+#    uri: https://localhost:8090/api/auth/login-facebook
+#  link:
+#    get:
+#      token: https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s
