@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(	name = "users",
+@Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
@@ -20,17 +20,17 @@ public class usersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Id
+    //    @Id
     @NotBlank
-    @Size(min = 5,max = 100)
+    @Size(min = 5, max = 100)
     private String username;
 
     @NotBlank
-    @Size(min = 4,max = 100)
+    @Size(min = 4, max = 100)
     private String password;
 
     @NotBlank
-    @Size(min = 2,max = 100)
+    @Size(min = 2, max = 100)
     private String name;
 
 
@@ -50,7 +50,7 @@ public class usersEntity {
     public usersEntity() {
     }
 
-    public usersEntity(String username, String name, String email , String password) {
+    public usersEntity(String username, String name, String email, String password) {
         this.username = username;
         this.name = name;
         this.email = email;
