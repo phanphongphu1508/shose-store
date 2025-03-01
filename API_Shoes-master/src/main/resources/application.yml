@@ -29,8 +29,8 @@ spring:
       max-request-size: 12800KB
 
   mail:
-    username: minhdinh1552@gmail.com
-    password: klfn jebg rosb epjc
+    username: mail@gmail.com
+    password: genapppass
 
 
 bezkoder:
