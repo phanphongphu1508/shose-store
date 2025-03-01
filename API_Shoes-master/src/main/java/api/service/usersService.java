@@ -71,7 +71,7 @@ public class usersService implements UserDetailsService {
             return false;
         }
 
-        String resetLink = "http://localhost:8080/reset-password?email=" + email;
+        String resetLink = "http://localhost:3000/reset-password?email=" + email;
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);

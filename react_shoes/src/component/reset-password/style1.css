@@ -1,0 +1,111 @@
+.custom-control-input {
+    margin-left: 500px;  /* This might be too large - consider reducing if needed */
+}
+
+.form-control {
+    height: 40px;
+    font-size: 14px;  /* Matches your input font size from JSX */
+}
+
+/* Updated button styling */
+.btn-primary {
+    background-color: #c96;  /* Matches your original color scheme */
+    border-color: #c96 !important;
+    color: #fff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.85rem 1.5rem !important;
+    font-weight: 400;
+    font-size: 1.6rem !important;  /* Increased from JSX 16px for consistency */
+    line-height: 1.5 !important;
+    letter-spacing: -.01em !important;
+    border-radius: 5px !important;  /* Matches JSX styling */
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+    background-color: #b85c38;  /* Darker shade of #c96 for hover */
+    border-color: #b85c38 !important;
+    color: #fff !important;
+}
+
+.btn-primary span {
+    margin-right: 5px;  /* Space between text and arrow */
+}
+
+.btn-outline-secondary {
+    color: #666 !important;
+    background-color: transparent;
+    border-color: #dadada !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.85rem 1.5rem !important;
+    font-weight: 400;
+    font-size: 1.6rem !important;
+    line-height: 1.5 !important;
+    letter-spacing: -.01em !important;
+    border-radius: 5px !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff !important;
+    background-color: #666 !important;
+    border-color: #666 !important;
+}
+
+/* General button styles */
+.btn {
+    text-align: center !important;
+    white-space: normal !important;
+}
+
+/* Form footer layout */
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;  /* Space between buttons */
+    margin-top: 20px;
+}
+
+/* Checkbox styles remain mostly unchanged */
+.custom-control-label {
+    position: static;
+    margin-bottom: 0;
+    margin-top: 0.2rem;
+    font-size: 1.4rem;
+    padding-left: 3.6rem;
+    margin-left: -2.6rem;
+}
+
+.custom-control-label::before {
+    left: 0;
+    top: .6rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    background-color: #f9f9f9;
+    border: 1px solid #dadada;
+    box-shadow: none !important;
+}
+
+.custom-control-label::after {
+    left: 0;
+    top: .6rem;
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+/* Thông báo lỗi */
+.text-danger {
+    font-size: 1.6rem; /* Cỡ chữ lớn hơn */
+    color: #dc3545; /* Màu đỏ cho thông báo lỗi */
+    margin-top: 5px; /* Khoảng cách phía trên */
+    text-align: center; /* Căn giữa thông báo */
+    font-weight: 500; /* Độ đậm của chữ */
+    padding: 10px; /* Thêm padding để dễ đọc */
+    width: 100%; /* Chiều rộng đầy đủ */
+
+}
