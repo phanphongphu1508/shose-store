@@ -1,11 +1,11 @@
-import './style1.css'
-import 'jquery'
-import 'bootstrap/dist/js/bootstrap.js'
+import React, { useState, useEffect } from 'react';
+import './style1.css';
+import 'jquery';
+import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Background from '../../assets/images/login-bg1.jpg';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { showError, showMessage } from '../message/index';
 
 function Login(props) {
@@ -14,25 +14,29 @@ function Login(props) {
     const linkgg = 'https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/api/auth/login-google&response_type=code&client_id=721465338797-4lcqo4qql4vmevh90pnaahvo6tem4lsr.apps.googleusercontent.com&approval_prompt=force';
     const linkfb = 'https://www.facebook.com/dialog/oauth?client_id=1101972766995519&redirect_uri=http://localhost:8080/api/auth/login-facebook';
 
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         let title = (new URLSearchParams(window.location.search)).get("platform")
         let token = (new URLSearchParams(window.location.search)).get("token")
         if (title !== null && title !== "" && token !== null && token !== "") {
-            // alert(title)
             console.log(token)
             getUser(token)
         }
     }, [])
 
     const loginAccount = () => {
-        var username = document.getElementById("singin-email");
-        var password = document.getElementById("singin-password");
-        console.log("u " + username.value)
-        console.log("p " + password.value)
+        var username = document.getElementById("singin-email").value;
+        var password = document.getElementById("singin-password").value;
+
+        if (!username || !password) {
+            setErrorMessage("Please enter username and password.");
+            return;
+        }
+
         const bodyParameters = {
-            username: username.value,
-            password: password.value
+            username: username,
+            password: password
         };
 
         axios.post(hostname + '/api/auth/signin', bodyParameters)
@@ -54,9 +58,11 @@ function Login(props) {
                 }
 
                 showMessage("MSG_LOGIN_SUCCESS");
+                setErrorMessage(''); // Clear error message on successful login
             })
             .catch((error) => {
                 console.log("error " + error.response)
+                setErrorMessage("Invalid username or password.");
                 showError(error);
             })
     }
@@ -86,7 +92,6 @@ function Login(props) {
                 alert("signup error! try again")
             })
     }
-
 
     const getList = (e) => {
         const config = {
@@ -130,7 +135,6 @@ function Login(props) {
                 let list = []
                 localStorage.setItem("SC", JSON.stringify(list))
             })
-
     }
 
     return (
@@ -154,56 +158,58 @@ function Login(props) {
                                         <Link className="nav-link active" id="signin-tab-2" data-toggle="tab" role="tab" to="/login" aria-controls="signin-2" aria-selected="true">Sign In</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link " id="register-tab-2" data-toggle="tab" to="/signup" role="tab" aria-controls="register-2" aria-selected="false">Register</Link>
+                                        <Link className="nav-link" id="register-tab-2" data-toggle="tab" to="/signup" role="tab" aria-controls="register-2" aria-selected="false">Register</Link>
                                     </li>
                                 </ul>
                                 <div className="tab-content">
                                     <div className="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
                                         <form action="">
                                             <div className="form-group">
-                                                <label for="singin-email-2">Username or email address *</label>
+                                                <label htmlFor="singin-email-2">Username or email address *</label>
                                                 <input style={{ fontSize: 14 }} type="text" className="form-control" id="singin-email" name="singin-email" required />
                                             </div>
 
                                             <div className="form-group">
-                                                <label for="singin-password-2">Password *</label>
+                                                <label htmlFor="singin-password-2">Password *</label>
                                                 <input style={{ fontSize: 14 }} type="password" className="form-control" id="singin-password" name="singin-password" required />
                                             </div>
 
                                             <div className="form-footer">
-                                                {/* <button type="button" onClick={loginAccount} className="btn btn-outline-primary-2">
-                                                            <span>LOG IN</span>
-                                                            <i className="icon-long-arrow-right"></i>
-                                                        </button> */}
-                                                <button type="button" onClick={loginAccount} className="btn btn-outline-primary-2">
-                                                    <span >LOG IN</span>
-                                                    <i className="icon-long-arrow-right"></i>
+                                                <button
+                                                    type="button"
+                                                    onClick={loginAccount}
+                                                    className="btn btn-primary"
+                                                    style={{
+                                                        width: '100px',
+                                                        height: '43px',
+                                                        padding: '10px 20px',
+                                                        fontSize: '16px',
+                                                        borderRadius: '5px',
+                                                        marginRight: '10px'
+                                                    }}
+                                                >
+                                                    <span>LOG IN</span>
+                                            
                                                 </button>
 
-                                                {/* <div className="custom-control custom-checkbox">
-                                                            <input type="checkbox" className="custom-control-input" id="signin-remember-2"/>
-                                                            <label className="custom-control-label" for="signin-remember-2">Remember Me</label>
-                                                        </div> */}
-                                                {/* <a href="/forgot" className="forgot-link">Forgot Your Password?</a> */}
+                                                <Link
+                                                    to="/forgot"
+                                                    className="btn btn-outline-secondary"
+                                                    style={{
+                                                        padding: '10px 20px',
+                                                        fontSize: '16px',
+                                                        borderRadius: '5px'
+                                                    }}
+                                                >
+                                                    Forgot Password?
+                                                </Link>
                                             </div>
+                                            {errorMessage && (
+                                                <div className="text-danger mt-2">
+                                                    {errorMessage}
+                                                </div>
+                                            )}
                                         </form>
-                                        <div className="form-choice">
-                                            <p className="text-center">or sign in with</p>
-                                            <div className="row">
-                                                <div className="col-sm-6">
-                                                    <a href={linkgg} className="btn btn-login btn-g">
-                                                        <i className="icon-google"></i>
-                                                        Login With Google
-                                                    </a>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <a href={linkfb} className="btn btn-login btn-f">
-                                                        <i className="icon-facebook-f"></i>
-                                                        Login With Facebook
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
