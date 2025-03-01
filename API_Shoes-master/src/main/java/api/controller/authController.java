@@ -17,6 +17,7 @@ import api.security.config.JwtUtils;
 import api.security.config.RestFB;
 import api.security.service.UserDetailsImpl;
 import api.service.customersService;
+import api.service.usersService;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -81,6 +82,9 @@ public class authController {
 
     @Autowired
     api.service.sendMailService sendMailService;
+
+    @Autowired
+    usersService userService;
 
 
     @PostMapping("/signin")
@@ -320,6 +324,29 @@ public class authController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(yahoo);
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
+
+    }
+
+    @GetMapping("/forgot")
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) throws MessagingException {
+        boolean isSuccess = userService.forgotPassword(email);
+        if (isSuccess) {
+            return ResponseEntity.status(HttpStatus.OK).body("Please check your email to reset password");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is not found");
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestParam String email, @RequestParam String newpassword) throws MessagingException {
+        boolean isSuccess = userService.setPassword(email, newpassword);
+        if (isSuccess) {
+            return ResponseEntity.status(HttpStatus.OK).body("Login using new password");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is not found");
+        }
 
     }
 }

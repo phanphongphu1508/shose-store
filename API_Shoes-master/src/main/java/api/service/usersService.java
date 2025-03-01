@@ -10,12 +10,17 @@ import api.repository.usersRepository;
 import api.security.service.UserDetailsImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.Optional;
 
 @Service
@@ -27,6 +32,10 @@ public class usersService implements UserDetailsService {
     roleRepository roleRepository;
     @Autowired
     ModelMapper mapper;
+    @Autowired
+    JavaMailSender mailSender;
+    @Autowired
+    PasswordEncoder encoder;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -56,4 +65,40 @@ public class usersService implements UserDetailsService {
         return  usersDTO;
     }
 
+    public boolean forgotPassword(String email) throws MessagingException {
+        Optional<usersEntity> user = usersRepository.findByUsername(email);
+        if(!user.isPresent()){
+            return false;
+        }
+
+        String resetLink = "http://localhost:8080/reset-password?email=" + email;
+
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        mimeMessageHelper.setTo(email);
+        mimeMessageHelper.setSubject("Reset Password for ShoesStore");
+
+        String emailContent = "<html><body>"
+                + "<p>Click the link below to reset your password:</p>"
+                + "<p><a href=\"" + resetLink + "\" style=\"color: blue; text-decoration: underline;\">Reset Password</a></p>"
+                + "</body></html>";
+
+        mimeMessageHelper.setText(emailContent, true);
+        mailSender.send(mimeMessage);
+        return true;
+    }
+
+    public boolean setPassword(String email, String newPassword) {
+        Optional<usersEntity> user = usersRepository.findByUsername(email);
+        if(!user.isPresent()){
+            return false;
+        }
+        else {
+            usersEntity userEntity = user.get();
+            userEntity.setPassword(encoder.encode(newPassword));
+            usersRepository.save(userEntity);
+            return true;
+        }
+    }
 }
